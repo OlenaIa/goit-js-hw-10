@@ -10,12 +10,11 @@ const ref = {
     loader: document.querySelector('.loader'),
     error: document.querySelector('.error'),
 };
+const { selector, divCatInfo, loader, error } = ref;
 
-ref.loader.classList.replace('loader', 'is-hidden');
-ref.error.classList.add('is-hidden');
-ref.divCatInfo.classList.add('is-hidden');
-
-
+loader.classList.replace('loader', 'is-hidden');
+error.classList.add('is-hidden');
+divCatInfo.classList.add('is-hidden');
 
 let arrBreedsId = [];
 fetchBreeds()
@@ -25,47 +24,45 @@ fetchBreeds()
         arrBreedsId.push({text: element.name, value: element.id});
     });
     // console.log(arrBreedsId);
-new SlimSelect({
-    select: ref.selector,
-    data: arrBreedsId,
-});
+    new SlimSelect({
+        select: selector,
+        data: arrBreedsId
+    });
     
     // let options = '';
     // for (const item of arrBreedsId) {
     //     options += `<option value="${item.id}">${item.breed}</option>`;
     // }
     // // console.log(options);
-    // ref.selector.innerHTML = options;
+    // selector.innerHTML = options;
     })
     .catch(onFetchError);
 
-
-
-
-ref.selector.addEventListener('change', onSelectBreed);
+selector.addEventListener('change', onSelectBreed);
 
 function onSelectBreed(event) {
-    ref.loader.classList.replace('is-hidden', 'loader');
-    ref.selector.classList.add('is-hidden');
-    ref.divCatInfo.innerHTML = '';
+    loader.classList.replace('is-hidden', 'loader');
+    selector.classList.add('is-hidden');
+    divCatInfo.classList.add('is-hidden');
 
     const breedId = event.currentTarget.value;
     fetchCatByBreed(breedId)
     .then(data => {
-        ref.loader.classList.replace('loader', 'is-hidden');
-        ref.selector.classList.remove('is-hidden');
-        ref.divCatInfo.classList.remove('is-hidden');
-        ref.divCatInfo.innerHTML = `<div class="box-img"><img src="${data[0].url}" alt="${data[0].breeds[0].name}" width="300"/></div><div class="box"><h1>${data[0].breeds[0].name}</h1><p>${data[0].breeds[0].description}</p><p><b>Temperament:</b> ${data[0].breeds[0].temperament}</p></div>`
+        loader.classList.replace('loader', 'is-hidden');
+        selector.classList.remove('is-hidden');
+        const { url, breeds } = data[0];
+        
+        divCatInfo.innerHTML = `<div class="box-img"><img src="${url}" alt="${breeds[0].name}" width="400"/></div><div class="box"><h1>${breeds[0].name}</h1><p>${breeds[0].description}</p><p><b>Temperament:</b> ${breeds[0].temperament}</p></div>`
+        divCatInfo.classList.remove('is-hidden');
     })
     .catch(onFetchError);
 };
 
 function onFetchError(error) {
-    ref.selector.classList.add('is-hidden');
-    if (ref.loader.classList.contains('loader')) {
-        ref.loader.classList.replace('loader', 'is-hidden');
-    }
-    // ref.error.classList.remove('is-hidden');
+    selector.classList.add('is-hidden');
+    loader.classList.replace('loader', 'is-hidden');
+
+    // error.classList.remove('is-hidden');
     Notify.failure('Oops! Something went wrong! Try reloading the page!', {
         position: 'center-center',
         timeout: 5000,
@@ -74,9 +71,9 @@ function onFetchError(error) {
     });
 };
 
-function removeMarkup(reference) {
-    reference.textContent = '';
-}
+// function removeMarkup(reference) {
+//     reference.textContent = '';
+// }
    
 
 

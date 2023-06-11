@@ -4,7 +4,6 @@ const api_key = "live_i0tDaOGInqQ26rh7JUwZgUxN2ia9tgGfeQAmLlGg5e4sjZuijJKVoZO121
 export function fetchBreeds() {
     return fetch(`${url}/breeds?api_key=${api_key}`)
         .then(response => {
-            console.log(response);
             if (!response.ok) {
                 throw new Error(response.status);
             }
