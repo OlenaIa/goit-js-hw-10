@@ -19,24 +19,15 @@ divCatInfo.classList.add('is-hidden');
 let arrBreedsId = [];
 fetchBreeds()
 .then(data => {
-    // console.log(data);
     data.forEach(element => {
         arrBreedsId.push({text: element.name, value: element.id});
     });
-    // console.log(arrBreedsId);
     new SlimSelect({
         select: selector,
         data: arrBreedsId
     });
-    
-    // let options = '';
-    // for (const item of arrBreedsId) {
-    //     options += `<option value="${item.id}">${item.breed}</option>`;
-    // }
-    // // console.log(options);
-    // selector.innerHTML = options;
     })
-    .catch(onFetchError);
+.catch(onFetchError);
 
 selector.addEventListener('change', onSelectBreed);
 
@@ -59,21 +50,16 @@ function onSelectBreed(event) {
 };
 
 function onFetchError(error) {
-    selector.classList.add('is-hidden');
+    selector.classList.remove('is-hidden');
     loader.classList.replace('loader', 'is-hidden');
 
-    // error.classList.remove('is-hidden');
-    Notify.failure('Oops! Something went wrong! Try reloading the page!', {
+    Notify.failure('Oops! Something went wrong! Try reloading the page or select another cat breed!', {
         position: 'center-center',
         timeout: 5000,
         width: '400px',
         fontSize: '24px'
     });
 };
-
-// function removeMarkup(reference) {
-//     reference.textContent = '';
-// }
    
 
 
