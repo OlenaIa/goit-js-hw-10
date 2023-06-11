@@ -1,0 +1,137 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+        Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #fafafa;
+    color: #212121;
+    line-height: 1.5;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    border: 1px solid #0d161b;
+}
+
+h1 {
+    margin: 0;
+}
+
+.cat-info {
+    margin-top: 20px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+    background-color: #e5f3f2;
+    border: 1px solid #212121;
+}
+
+.box-img {
+    display: flex;
+    align-items: center;
+}
+
+.box {
+    width: 400px;
+}
+
+.is-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    white-space: nowrap;
+    clip-path: inset(100%);
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+}
+
+.loader {
+    font-size: 0;
+    position: relative;
+    margin: 30% auto;
+    width: 250px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.loader::after,
+.loader::before {
+    content: '';
+    display: inline-block;
+    width: 80px;
+    height: 100px;
+    background-color: #32d1d1;
+    background-image: radial-gradient(circle 14px, #0d161b 100%, transparent 0);
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    animation: eyeMove 10s infinite, blink 10s infinite;
+}
+
+@keyframes eyeMove {
+
+    0%,
+    10% {
+        background-position: 0px 0px
+    }
+
+    13%,
+    40% {
+        background-position: -15px 0px
+    }
+
+    43%,
+    70% {
+        background-position: 15px 0px
+    }
+
+    73%,
+    90% {
+        background-position: 0px 15px
+    }
+
+    93%,
+    100% {
+        background-position: 0px 0px
+    }
+}
+
+@keyframes blink {
+
+    0%,
+    10%,
+    12%,
+    20%,
+    22%,
+    40%,
+    42%,
+    60%,
+    62%,
+    70%,
+    72%,
+    90%,
+    92%,
+    98%,
+    100% {
+        height: 48px
+    }
+
+    11%,
+    21%,
+    41%,
+    61%,
+    71%,
+    91%,
+    99% {
+        height: 18px
+    }
+}
